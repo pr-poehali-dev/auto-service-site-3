@@ -103,7 +103,7 @@ export default function Index() {
           </div>
           <nav className="hidden md:flex gap-8">
             <a href="#services" className="text-foreground hover:text-primary transition-colors">Услуги</a>
-            <a href="#prices" className="text-foreground hover:text-primary transition-colors">Цены</a>
+            <a href="#services" className="text-foreground hover:text-primary transition-colors">Цены</a>
             <a href="#about" className="text-foreground hover:text-primary transition-colors">О нас</a>
             <a href="#reviews" className="text-foreground hover:text-primary transition-colors">Отзывы</a>
             <a href="#contact" className="text-foreground hover:text-primary transition-colors">Контакты</a>
@@ -158,7 +158,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-background">
+      <section id="services" className="py-20 bg-background scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши услуги</h2>
@@ -197,7 +197,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-muted">
+      <section id="about" className="py-20 bg-muted scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
@@ -238,7 +238,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="reviews" className="py-20 bg-background">
+      <section id="reviews" className="py-20 bg-background scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Отзывы клиентов</h2>
@@ -267,7 +267,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-muted">
+      <section id="contact" className="py-20 bg-muted scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -378,7 +378,7 @@ export default function Index() {
               <h3 className="font-heading font-semibold text-lg mb-4">Навигация</h3>
               <ul className="space-y-2 text-white/70">
                 <li><a href="#services" className="hover:text-white transition-colors">Услуги</a></li>
-                <li><a href="#prices" className="hover:text-white transition-colors">Цены</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">Цены</a></li>
                 <li><a href="#about" className="hover:text-white transition-colors">О нас</a></li>
                 <li><a href="#reviews" className="hover:text-white transition-colors">Отзывы</a></li>
               </ul>
