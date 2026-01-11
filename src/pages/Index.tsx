@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 
 const services = [
@@ -12,6 +13,7 @@ const services = [
     title: 'Замена масла',
     description: 'Полная замена моторного масла и масляного фильтра. Используем только сертифицированные масла ведущих производителей.',
     price: '2 500 ₽',
+    priceValue: 2500,
     duration: '30 мин',
     icon: 'Droplets'
   },
@@ -20,6 +22,7 @@ const services = [
     title: 'Диагностика двигателя',
     description: 'Компьютерная диагностика всех систем автомобиля. Выявление скрытых неисправностей на современном оборудовании.',
     price: '1 500 ₽',
+    priceValue: 1500,
     duration: '45 мин',
     icon: 'Settings'
   },
@@ -28,6 +31,7 @@ const services = [
     title: 'Замена тормозных колодок',
     description: 'Замена передних и задних тормозных колодок. Проверка состояния тормозных дисков и суппортов.',
     price: '3 800 ₽',
+    priceValue: 3800,
     duration: '1 час',
     icon: 'CircleStop'
   },
@@ -36,6 +40,7 @@ const services = [
     title: 'Шиномонтаж',
     description: 'Сезонная замена шин, балансировка колес. Хранение сезонных комплектов колес в отапливаемом помещении.',
     price: '2 000 ₽',
+    priceValue: 2000,
     duration: '40 мин',
     icon: 'Circle'
   },
@@ -44,6 +49,7 @@ const services = [
     title: 'Ремонт подвески',
     description: 'Диагностика и ремонт ходовой части. Замена амортизаторов, рычагов, сайлентблоков и других элементов.',
     price: 'от 5 000 ₽',
+    priceValue: 5000,
     duration: '2-4 часа',
     icon: 'Wrench'
   },
@@ -52,6 +58,7 @@ const services = [
     title: 'Кузовной ремонт',
     description: 'Устранение повреждений кузова любой сложности. Покраска в камере с профессиональным оборудованием.',
     price: 'от 8 000 ₽',
+    priceValue: 8000,
     duration: 'от 1 дня',
     icon: 'Paintbrush'
   }
@@ -88,6 +95,24 @@ export default function Index() {
     message: ''
   });
 
+  const [selectedServices, setSelectedServices] = useState<number[]>([]);
+
+  const toggleService = (serviceId: number) => {
+    setSelectedServices(prev => 
+      prev.includes(serviceId) 
+        ? prev.filter(id => id !== serviceId)
+        : [...prev, serviceId]
+    );
+  };
+
+  const calculateTotal = () => {
+    return services
+      .filter(service => selectedServices.includes(service.id))
+      .reduce((total, service) => total + service.priceValue, 0);
+  };
+
+  const totalPrice = calculateTotal();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
@@ -103,7 +128,7 @@ export default function Index() {
           </div>
           <nav className="hidden md:flex gap-8">
             <a href="#services" className="text-foreground hover:text-primary transition-colors">Услуги</a>
-            <a href="#services" className="text-foreground hover:text-primary transition-colors">Цены</a>
+            <a href="#calculator" className="text-foreground hover:text-primary transition-colors">Калькулятор</a>
             <a href="#about" className="text-foreground hover:text-primary transition-colors">О нас</a>
             <a href="#reviews" className="text-foreground hover:text-primary transition-colors">Отзывы</a>
             <a href="#contact" className="text-foreground hover:text-primary transition-colors">Контакты</a>
@@ -130,7 +155,12 @@ export default function Index() {
                 <Icon name="Calendar" size={20} className="mr-2" />
                 Записаться на сервис
               </Button>
-              <Button size="lg" variant="outline" className="text-lg">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-lg"
+                onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 <Icon name="Calculator" size={20} className="mr-2" />
                 Рассчитать стоимость
               </Button>
@@ -197,7 +227,87 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-muted scroll-mt-20">
+      <section id="calculator" className="py-20 bg-muted scroll-mt-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Калькулятор стоимости</h2>
+              <p className="text-lg text-muted-foreground">Выберите нужные услуги и узнайте стоимость</p>
+            </div>
+            <Card className="overflow-hidden">
+              <CardContent className="p-6">
+                <div className="space-y-4 mb-6">
+                  {services.map((service) => (
+                    <div 
+                      key={service.id}
+                      className="flex items-start gap-4 p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer"
+                      onClick={() => toggleService(service.id)}
+                    >
+                      <Checkbox 
+                        checked={selectedServices.includes(service.id)}
+                        onCheckedChange={() => toggleService(service.id)}
+                        className="mt-1"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <div className="font-semibold text-secondary mb-1">{service.title}</div>
+                            <div className="text-sm text-muted-foreground">{service.duration}</div>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <div className="font-bold text-primary">{service.price}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-t pt-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <div className="text-sm text-muted-foreground mb-1">Выбрано услуг: {selectedServices.length}</div>
+                      <div className="text-3xl font-heading font-bold text-secondary">
+                        Итого: <span className="text-primary">{totalPrice.toLocaleString('ru-RU')} ₽</span>
+                      </div>
+                    </div>
+                    <Button 
+                      size="lg" 
+                      disabled={selectedServices.length === 0}
+                      onClick={() => {
+                        const serviceNames = services
+                          .filter(s => selectedServices.includes(s.id))
+                          .map(s => s.title)
+                          .join(', ');
+                        setFormData({ 
+                          ...formData, 
+                          message: `Хочу записаться на следующие услуги: ${serviceNames}. Общая стоимость: ${totalPrice.toLocaleString('ru-RU')} ₽`
+                        });
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <Icon name="Calendar" size={20} className="mr-2" />
+                      Записаться на услуги
+                    </Button>
+                  </div>
+                  {selectedServices.length > 0 && (
+                    <div className="bg-primary/5 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <Icon name="Info" size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                        <div className="text-sm text-foreground">
+                          <strong>Обратите внимание:</strong> Окончательная стоимость может отличаться в зависимости 
+                          от состояния автомобиля и необходимости дополнительных работ. Точную смету вы получите после диагностики.
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="py-20 bg-background scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
@@ -378,7 +488,7 @@ export default function Index() {
               <h3 className="font-heading font-semibold text-lg mb-4">Навигация</h3>
               <ul className="space-y-2 text-white/70">
                 <li><a href="#services" className="hover:text-white transition-colors">Услуги</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Цены</a></li>
+                <li><a href="#calculator" className="hover:text-white transition-colors">Калькулятор</a></li>
                 <li><a href="#about" className="hover:text-white transition-colors">О нас</a></li>
                 <li><a href="#reviews" className="hover:text-white transition-colors">Отзывы</a></li>
               </ul>
