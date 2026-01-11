@@ -40,7 +40,7 @@ export default function Index() {
       
       <section className="py-32 bg-background">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-5xl font-heading font-bold text-secondary mb-6">Что мы предлагаем</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
               Выберите услугу и познакомьтесь с нашими возможностями
@@ -54,7 +54,7 @@ export default function Index() {
                 to={feature.link}
                 className="group"
               >
-                <Card className="p-8 hover:shadow-luxury transition-all duration-300 border-2 hover:border-primary/20 h-full">
+                <Card className="p-8 hover:shadow-luxury transition-all duration-300 border-2 hover:border-primary/20 h-full animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-luxury-sm">
                     <Icon name={feature.icon as any} size={28} className="text-white" />
                   </div>

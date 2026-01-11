@@ -10,7 +10,8 @@ const services = [
     price: '2 500 ₽',
     priceValue: 2500,
     duration: '30 мин',
-    icon: 'Droplets'
+    icon: 'Droplets',
+    category: 'maintenance'
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const services = [
     price: '1 500 ₽',
     priceValue: 1500,
     duration: '45 мин',
-    icon: 'Settings'
+    icon: 'Settings',
+    category: 'diagnostics'
   },
   {
     id: 3,
@@ -28,7 +30,8 @@ const services = [
     price: '3 800 ₽',
     priceValue: 3800,
     duration: '1 час',
-    icon: 'CircleStop'
+    icon: 'CircleStop',
+    category: 'repair'
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const services = [
     price: '2 000 ₽',
     priceValue: 2000,
     duration: '40 мин',
-    icon: 'Circle'
+    icon: 'Circle',
+    category: 'maintenance'
   },
   {
     id: 5,
@@ -46,7 +50,8 @@ const services = [
     price: 'от 5 000 ₽',
     priceValue: 5000,
     duration: '2-4 часа',
-    icon: 'Wrench'
+    icon: 'Wrench',
+    category: 'repair'
   },
   {
     id: 6,
@@ -55,7 +60,68 @@ const services = [
     price: 'от 8 000 ₽',
     priceValue: 8000,
     duration: 'от 1 дня',
-    icon: 'Paintbrush'
+    icon: 'Paintbrush',
+    category: 'bodywork'
+  },
+  {
+    id: 7,
+    title: 'Замена аккумулятора',
+    description: 'Подбор и установка нового аккумулятора. Диагностика электрической системы автомобиля.',
+    price: '1 200 ₽',
+    priceValue: 1200,
+    duration: '20 мин',
+    icon: 'Battery',
+    category: 'maintenance'
+  },
+  {
+    id: 8,
+    title: 'Замена свечей зажигания',
+    description: 'Замена свечей зажигания на оригинальные или аналоги премиум-класса. Улучшение динамики двигателя.',
+    price: '1 800 ₽',
+    priceValue: 1800,
+    duration: '40 мин',
+    icon: 'Zap',
+    category: 'maintenance'
+  },
+  {
+    id: 9,
+    title: 'Ремонт системы охлаждения',
+    description: 'Замена радиатора, термостата, патрубков. Промывка системы охлаждения двигателя.',
+    price: 'от 3 500 ₽',
+    priceValue: 3500,
+    duration: '1-2 часа',
+    icon: 'Snowflake',
+    category: 'repair'
+  },
+  {
+    id: 10,
+    title: 'Заправка кондиционера',
+    description: 'Диагностика и заправка системы кондиционирования фреоном. Проверка на утечки.',
+    price: '2 800 ₽',
+    priceValue: 2800,
+    duration: '1 час',
+    icon: 'Wind',
+    category: 'maintenance'
+  },
+  {
+    id: 11,
+    title: 'Полировка кузова',
+    description: 'Профессиональная полировка с использованием премиальных материалов. Защитное покрытие керамикой.',
+    price: 'от 12 000 ₽',
+    priceValue: 12000,
+    duration: '4-6 часов',
+    icon: 'Sparkles',
+    category: 'bodywork'
+  },
+  {
+    id: 12,
+    title: 'Развал-схождение',
+    description: '3D регулировка углов установки колес на компьютерном стенде. Увеличение срока службы шин.',
+    price: '2 200 ₽',
+    priceValue: 2200,
+    duration: '45 мин',
+    icon: 'Compass',
+    category: 'maintenance'
   }
 ];
 

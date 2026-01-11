@@ -84,10 +84,18 @@ export default function Header() {
             </Link>
           </nav>
           
-          <Button className="hidden md:inline-flex bg-gradient-to-r from-primary to-accent hover:shadow-luxury transition-all duration-300">
-            <Icon name="Phone" size={18} className="mr-2" />
-            +7 (495) 123-45-67
-          </Button>
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" asChild>
+              <Link to="/dashboard">
+                <Icon name="User" size={18} className="mr-2" />
+                Личный кабинет
+              </Link>
+            </Button>
+            <Button className="bg-gradient-to-r from-primary to-accent hover:shadow-luxury transition-all duration-300">
+              <Icon name="Phone" size={18} className="mr-2" />
+              +7 (495) 123-45-67
+            </Button>
+          </div>
         </div>
       </div>
     </header>
