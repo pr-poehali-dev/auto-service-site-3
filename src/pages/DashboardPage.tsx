@@ -6,11 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function DashboardPage() {
+  const { user: authUser } = useAuth();
+  
   const user = {
-    name: 'Александр Петров',
-    email: 'alexander@example.com',
+    name: authUser?.name || 'Александр Петров',
+    email: authUser?.email || 'alexander@example.com',
     phone: '+7 (905) 123-45-67',
     carModel: 'BMW X5 2020',
     carNumber: 'А123БВ777',

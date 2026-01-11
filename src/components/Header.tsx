@@ -1,11 +1,28 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Icon from '@/components/ui/icon';
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
   
   const isActive = (path: string) => location.pathname === path;
+  
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
   
   return (
     <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-border/50 z-50">
@@ -85,16 +102,63 @@ export default function Header() {
           </nav>
           
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" asChild>
-              <Link to="/dashboard">
-                <Icon name="User" size={18} className="mr-2" />
-                Личный кабинет
-              </Link>
-            </Button>
-            <Button className="bg-gradient-to-r from-primary to-accent hover:shadow-luxury transition-all duration-300">
-              <Icon name="Phone" size={18} className="mr-2" />
-              +7 (495) 123-45-67
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="flex items-center gap-2">
+                      <Avatar className="w-8 h-8">
+                        <AvatarFallback className="text-xs font-heading bg-gradient-to-br from-primary to-accent text-white">
+                          {user?.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span>{user?.name}</span>
+                      <Icon name="ChevronDown" size={16} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      <Icon name="User" size={16} className="mr-2" />
+                      Личный кабинет
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      <Icon name="Settings" size={16} className="mr-2" />
+                      Настройки
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      <Icon name="Calendar" size={16} className="mr-2" />
+                      Мои записи
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                      <Icon name="LogOut" size={16} className="mr-2" />
+                      Выйти
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <Button className="bg-gradient-to-r from-primary to-accent hover:shadow-luxury transition-all duration-300">
+                  <Icon name="Phone" size={18} className="mr-2" />
+                  +7 (495) 123-45-67
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" asChild>
+                  <Link to="/login">
+                    <Icon name="LogIn" size={18} className="mr-2" />
+                    Войти
+                  </Link>
+                </Button>
+                <Button asChild className="bg-gradient-to-r from-primary to-accent hover:shadow-luxury transition-all duration-300">
+                  <Link to="/register">
+                    <Icon name="UserPlus" size={18} className="mr-2" />
+                    Регистрация
+                  </Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
