@@ -63,35 +63,39 @@ export { services };
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-background scroll-mt-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-heading font-bold text-secondary mb-4">Наши услуги</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Полный спектр услуг по ремонту и обслуживанию автомобилей
+    <section className="py-32 bg-background">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-heading font-bold text-secondary mb-6">Наши услуги</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
+            Полный спектр премиальных услуг по ремонту и обслуживанию автомобилей
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.map((service, index) => (
             <Card 
               key={service.id} 
-              className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-scale-in"
+              className="group hover:shadow-luxury transition-all duration-500 hover:-translate-y-2 animate-scale-in border-2 hover:border-primary/20 overflow-hidden"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name={service.icon as any} size={24} className="text-primary" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-luxury-sm">
+                  <Icon name={service.icon as any} size={28} className="text-white" />
                 </div>
-                <CardTitle className="font-heading">{service.title}</CardTitle>
-                <CardDescription className="text-base leading-relaxed">{service.description}</CardDescription>
+                <CardTitle className="text-2xl font-heading mb-4 group-hover:text-primary transition-colors">{service.title}</CardTitle>
+                <CardDescription className="text-base leading-relaxed text-muted-foreground">{service.description}</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex justify-between items-center">
+              <CardContent className="relative">
+                <div className="flex justify-between items-center pt-4 border-t">
                   <div>
-                    <div className="text-2xl font-heading font-bold text-primary">{service.price}</div>
-                    <div className="text-sm text-muted-foreground">{service.duration}</div>
+                    <div className="text-3xl font-heading font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{service.price}</div>
+                    <div className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
+                      <Icon name="Clock" size={14} />
+                      {service.duration}
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="group-hover:bg-secondary group-hover:text-white transition-all">
                     Записаться
                   </Button>
                 </div>

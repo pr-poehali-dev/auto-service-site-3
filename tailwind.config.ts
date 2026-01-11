@@ -64,13 +64,17 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Open Sans', 'sans-serif'],
-				heading: ['Montserrat', 'sans-serif']
+				sans: ['Inter', 'sans-serif'],
+				heading: ['Playfair Display', 'serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'luxury': '0 20px 60px -15px rgba(0, 0, 0, 0.15)',
+				'luxury-sm': '0 8px 30px -8px rgba(0, 0, 0, 0.12)'
 			},
 			keyframes: {
 				'accordion-down': {

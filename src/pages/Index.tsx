@@ -1,74 +1,80 @@
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Services from '@/components/Services';
-import Calculator from '@/components/Calculator';
-import About from '@/components/About';
-import Reviews from '@/components/Reviews';
-import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { services } from '@/components/Services';
+import { Link } from 'react-router-dom';
+import { Card } from '@/components/ui/card';
+import Icon from '@/components/ui/icon';
 
 export default function Index() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    message: ''
-  });
-
-  const [selectedServices, setSelectedServices] = useState<number[]>([]);
-
-  const toggleService = (serviceId: number) => {
-    setSelectedServices(prev => 
-      prev.includes(serviceId) 
-        ? prev.filter(id => id !== serviceId)
-        : [...prev, serviceId]
-    );
-  };
-
-  const calculateTotal = () => {
-    return services
-      .filter(service => selectedServices.includes(service.id))
-      .reduce((total, service) => total + service.priceValue, 0);
-  };
-
-  const totalPrice = calculateTotal();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-  };
-
-  const handleBooking = () => {
-    const serviceNames = services
-      .filter(s => selectedServices.includes(s.id))
-      .map(s => s.title)
-      .join(', ');
-    setFormData({ 
-      ...formData, 
-      message: `Хочу записаться на следующие услуги: ${serviceNames}. Общая стоимость: ${totalPrice.toLocaleString('ru-RU')} ₽`
-    });
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const features = [
+    {
+      icon: 'Wrench',
+      title: 'Наши услуги',
+      description: 'Полный спектр ремонта и обслуживания для вашего автомобиля',
+      link: '/services'
+    },
+    {
+      icon: 'Calculator',
+      title: 'Калькулятор стоимости',
+      description: 'Рассчитайте стоимость услуг онлайн за несколько кликов',
+      link: '/calculator'
+    },
+    {
+      icon: 'Star',
+      title: 'Отзывы клиентов',
+      description: 'Более 10,000 довольных клиентов доверяют нам',
+      link: '/reviews'
+    },
+    {
+      icon: 'Phone',
+      title: 'Связаться с нами',
+      description: 'Запишитесь на сервис или получите консультацию',
+      link: '/contact'
+    }
+  ];
 
   return (
     <div className="min-h-screen">
       <Header />
       <Hero />
-      <Services />
-      <Calculator 
-        selectedServices={selectedServices}
-        toggleService={toggleService}
-        totalPrice={totalPrice}
-        onBooking={handleBooking}
-      />
-      <About />
-      <Reviews />
-      <Contact 
-        formData={formData}
-        setFormData={setFormData}
-        handleSubmit={handleSubmit}
-      />
+      
+      <section className="py-32 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-heading font-bold text-secondary mb-6">Что мы предлагаем</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
+              Выберите услугу и познакомьтесь с нашими возможностями
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {features.map((feature, index) => (
+              <Link 
+                key={index} 
+                to={feature.link}
+                className="group"
+              >
+                <Card className="p-8 hover:shadow-luxury transition-all duration-300 border-2 hover:border-primary/20 h-full">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-luxury-sm">
+                    <Icon name={feature.icon as any} size={28} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold text-secondary mb-3 group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                  <div className="mt-6 flex items-center text-primary font-medium group-hover:gap-2 transition-all">
+                    <span>Подробнее</span>
+                    <Icon name="ArrowRight" size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       <Footer />
     </div>
   );
